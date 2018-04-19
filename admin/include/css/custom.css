@@ -1,0 +1,12 @@
+.lab-map-item button{
+    padding: 10px 20px;
+    margin: 15px;
+}
+
+.lab-note{
+    background-color: #1abc9c!important
+}
+
+a.lab-decoration{
+    text-decoration: underline!important;
+}
