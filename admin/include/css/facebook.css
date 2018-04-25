@@ -1,0 +1,49 @@
+.fb-sending {
+
+}
+.fb-send-done{
+    color: #00cc33
+}
+
+.fb-selected-conversation{
+    background-color: #F2F2F2;
+}
+
+.fb-unread{
+    background: aliceblue;
+    color: red;
+    font-weight: bold;
+}
+
+.fb-deleted{
+    text-decoration: line-through;
+    opacity: 0.4;
+}
+
+.fb-hidden{
+    opacity: 0.5;
+}
+
+.fb-row{
+    margin: 0;
+    padding: 0;
+}
+
+.fb-post-view{
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word;      /* IE */
+}
+
+p.fb-bg-sent-fail{
+    background-color: red!important;
+}
+
+.fb-sent-fail{
+    color: red;
+    cursor: pointer;
+    text-align: center;
+    font-size: 0.9em;
+}

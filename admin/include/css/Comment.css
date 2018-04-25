@@ -1,0 +1,345 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 23, 2017, 9:35:56 AM
+    Author     : hieuhd
+*/
+
+
+.all_conversation button {
+    background: #f5f3f3 none repeat scroll 0 0;
+    border: 1px solid #dddddd;
+    height: 38px;
+    text-align: left;
+    width: 100%;
+}
+.all_conversation i {
+    background: #e9e7e8 none repeat scroll 0 0;
+    border-radius: 100px;
+    color: #636363;
+    font-size: 17px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 30px;
+}
+.all_conversation .caret {
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+    right: 15px;
+    top: 0;
+}
+.all_conversation .dropdown-menu {
+    background: #f5f3f3 none repeat scroll 0 0;
+    border-radius: 0;
+    margin-top: 0;
+    padding: 0;
+    width: 100%;
+}
+.all_conversation ul li {
+    border-bottom: 1px solid #dddddd;
+    line-height: normal;
+    width: 100%;
+}
+.all_conversation ul li a:hover {
+    background: #dddddd none repeat scroll 0 0;
+    color:#333;
+}
+.all_conversation ul li a {
+    color: #333;
+    line-height: 30px;
+    padding: 3px 20px;
+}
+.member_list .chat-body {
+    margin-left: 47px;
+    margin-top: 0;
+}
+.top_nav {
+    overflow: visible;
+}
+.member_list .contact_sec {
+    margin-top: 3px;
+}
+.member_list li {
+    padding: 6px;
+}
+.member_list ul {
+    border: 1px solid #dddddd;
+}
+.chat-img img {
+    height: 34px;
+    width: 34px;
+}
+.member_list li {
+    border-bottom: 1px solid #dddddd;
+    padding: 6px;
+}
+.member_list li:last-child {
+    border-bottom:none;
+}
+.member_list {
+    height: 380px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.sub_menu_ {
+    background: #e8e6e7 none repeat scroll 0 0;
+    left: 100%;
+    max-width: 233px;
+    position: absolute;
+    width: 100%;
+}
+.sub_menu_ {
+    background: #f5f3f3 none repeat scroll 0 0;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    display: none;
+    left: 100%;
+    margin-left: 0;
+    max-width: 233px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.all_conversation ul li:hover .sub_menu_ {
+    display: block;
+}
+.new_message_head button {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+}
+.new_message_head {
+    background: #f5f3f3 none repeat scroll 0 0;
+    float: left;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 18px 10px;
+    width: 100%;
+}
+.message_section {
+    border: 1px solid #dddddd;
+}
+.chat_area {
+    float: left;    
+    height: 400px;
+    /*overflow-x: hidden;*/
+    /*overflow-y: auto;*/
+    width: 100%;
+}  
+.chat_area li {
+    padding: 14px 14px 0;
+}
+.chat_area li .chat-img1 img {
+    height: 40px;
+    width: 40px;
+}
+.chat_area .chat-body1 {
+    margin-left: 10px;
+}
+.chat-body1 p {
+    background: #fbf9fa none repeat scroll 0 0;
+    padding: 10px;
+}
+.chat_area .admin_chat{
+    float: right;
+    width: 60%;
+}
+.chat_area .customer_chat{
+    float: left;
+    width: 60%;
+}
+.chat_area .admin_chat .chat-body1 p {       
+    border-radius: 10px;
+    background: #0084ff none repeat scroll 0 0;
+    color: #fff;
+}
+.chat_area .customer_chat .chat-body1 p {       
+    border-radius: 10px;  
+    background: rgba(0, 0, 0, .05)!important;
+}
+.chat_area .admin_chat .chat-body1 {
+    margin-left: 0;
+    margin-right: 10px;        
+}
+.chat_area li:last-child {
+    padding-bottom: 10px;
+}
+.message_write {   
+    float: left;
+    padding: 15px;
+    width: 100%;
+}
+
+.message_write textarea.form-control {
+    height: 70px;
+    padding: 10px;
+}
+.chat_bottom {
+    float: left;
+    margin-top: 13px;
+    width: 100%;
+}
+.upload_btn {
+    margin-left: 12px;
+    color: #777777;
+}
+.sub_menu_ > li a, .sub_menu_ > li {
+    float: left;
+    width:100%;
+}
+.messages-list .messages-item:hover{       
+    background-color: rgba(0, 0, 0, .05)!important;
+}
+.messages-list .messages-item{       
+    border-bottom: none!important;
+}
+.current-message, .current-post{
+    background-color: rgba(0, 0, 0, .05)!important;
+}
+
+.post-item:hover{
+    background-color: rgba(0, 0, 0, .05)!important;
+}
+
+.overflow_item{
+    display:inline-block;    
+    max-width: 100%;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+}
+.overflow_comment{
+    display:inline-block;
+    width:270px;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+} 
+.footer {
+    position: fixed;
+    height: 100px;
+    bottom: 0;
+    width: 100%;
+}
+
+.email-options{
+    background-color: #fff!important
+}
+
+.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img{
+    width: 35px!important;
+    height: 35px!important;
+    max-height: 35px;
+    max-width: 35px;
+}
+/*this for tabs*/
+ul.tabs {
+    margin-bottom: 5px;
+    padding: 0;
+    float: left;
+    list-style: none;
+    /*height: 50px;*/
+    /*border-bottom: 1px solid #999999;*/
+    /*border-left: 1px solid #999999;*/
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+ul.tabs li {
+    float: left;
+    margin: 0;
+    cursor: pointer;
+    padding-left: 21px ;
+    padding-right: 20px;
+    /*height: 50px;*/
+    width: 77px;
+    line-height: 45px;
+    /*border: 1px solid #999999;*/
+    border-left: none;
+    font-weight: bold;
+    background: rgba(193,193,193,.2);
+    overflow: hidden;
+    position: relative;
+    color: rgba(193,193,193,.8);
+    display:inline-block;
+    vertical-align: bottom;
+
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+    background-color: #fff !important;
+    color: #5A8770!important;
+}
+
+.panel-body{
+    padding-top: 0!important;
+}
+
+.inbox .email-list{
+    border-right: 0 solid!important;
+}
+
+.tab-content > .tab-pane{
+    padding: 0!important;
+}
+#message_list{
+    background-color: #fff;
+}
+.fa-2x{
+    font-size: 1.5em;
+}
+
+.nav-tabs > li > a{
+    padding: 14px 20px!important;
+}
+
+.table > tbody > tr > td{
+    border: none!important;
+}
+html {
+    position: relative;
+    min-height: 100%;
+}
+.fill-height {
+    min-height: 650px!important;   
+    height: 650px!important; 
+}
+
+.message-from{
+    margin-bottom: 10px;
+}
+
+.profile-img{
+    width: 60px!important;
+    height: 60px!important;
+    max-height: 60px;
+    max-width: 60px;
+    margin-bottom: 10px;
+}
+
+.panel-tabs, .tabbable{
+    padding: 0!important;
+}
+
+.overflow_item{
+    max-width: 150px;   
+}
+
+@media (max-width: 1599px) {
+    .chat_area {        
+        height: 350px;        
+    }
+/*    .overflow_td{
+        max-width: 80%;   
+    }    */
+}
+@media (max-width: 768px) {  
+/*    .overflow_item{    
+        max-width: 50%;   
+    }    */
+}

@@ -1,51 +1,59 @@
 app.controller('chatCtrl', function ($scope, $rootScope, $timeout, mainService) {
     var vm = this;
     vm.numberCustomer = 1;
-    vm.items = [];
+    vm.items = [];     //hien thi các conversation
     vm.listChat = [];
-
+    vm.messages = [];
+    vm.hide = true;
+    vm.sessionId;
     vm.openSessionChat = openSessionChat;
+    vm.doAnswer = doAnswer;
 
     function openSessionChat(item) {
-        debugger;
-//        $scope.selfIdUser = $scope.AgentInfo.id;
-//        $scope.otherIdUser = parseInt(item.customerId);
-//        $scope.emailCustomer = item.email;
-//        $scope.$broadcast('eventName', {selfIdUser: $scope.selfIdUser, otherIdUser: $scope.otherIdUser});
-//            $(".media-list li").css({"background": "#ffffff"});
-//            $("#" + item.id).css({"background": "#e1e6f4"});
         for (var i = 0; i < vm.items.length; i++) {
             if (item.id !== vm.items[i].id) {
                 vm.items[i].isselected = false;
             }
         }
+        vm.hide = false;
         item.isread = false;
         item.isselected = true;
-        $('.action-control-end-container').attr('ss-data', item.id);
-        $('.action-control-end-container').attr('cus-id', item.customerId);
-        $('.action-control-tranfer-container').attr('cus-id', item.customerId);
-        $('.action-control-tranfer-container').attr('ss-id', item.id);
-        $('.media-list .' + item.id).attr('cus-id', item.customerId);
-        $('#users').show();
-        $('.chat-content').attr('sessionId', item.id);
-        if ($('.media-list .' + item.id).attr('ss-end') == 'yes') {
-            $('#submitchat').hide();
-        } else {
-            $('#submitchat').show();
-        }
-        togleActionControl(true);
-        $(".user-chat").animate({scrollTop: 9999999});
-
+        vm.sessionId = item.sessionId;
+        getMessage();
+        scrollToBottom();
     }
     ;
-    function togleActionControl($check) {
-        if ($check)
-            $('.chat-action-control ').show();
-        else
-            $('.chat-action-control ').hide();
+    function getMessage() {
+        var msg = {
+            'action': 'GetMessage',
+            'sessionId': vm.sessionId
+        };
+        $rootScope.wsChat.send(JSON.stringify(msg));
     }
+    function doAnswer(e) {
+        debugger;
+        if (e.keyCode === 13) {
+            e.stopPropagation();
+            var message = $("#txtChat").val();
+            if ('' !== message.trim('')) {
+                var msg = {
+                    'action': 'SendChat',
+                    'name': 'hau',
+                    'msg': message,
+                    'clientType': 'agent',
+                    'sessionId': vm.sessionId
+                };
+            }
+            $rootScope.wsChat.send(JSON.stringify(msg));
 
-    $rootScope.$on('GET_LIST_AGENT', function (event, data) {
+            getMessage();
+
+            $("#txtChat").val('');
+            e.preventDefault();
+            scrollToBottom();
+        }
+    }
+    $rootScope.$on('SEND_CHAT_EVENT', function (event, data) {
         debugger;
         var dataChat = data.value;
         var msg = {
@@ -68,6 +76,8 @@ app.controller('chatCtrl', function ($scope, $rootScope, $timeout, mainService) 
         }
 
         $scope.$apply();
+        getMessage();
+        scrollToBottom();
     });
 
     $rootScope.$on('JOIN_EVENT', function (event, data) {
@@ -96,4 +106,43 @@ app.controller('chatCtrl', function ($scope, $rootScope, $timeout, mainService) 
             vm.listChat.push(msg);
         }
     });
+
+    $rootScope.$on('GET_CONVERSATION_AGENT_EVENT', function (event, data) {
+        debugger;
+        for (var i = 0; i < data.length; i++) {
+            var item = {
+                "sessionId": data[i].sessionId,
+                "from": data[i].customerId,
+                "content": data[i].msgClient,
+                "isread": true,
+                "isselected": false
+            };
+            vm.items.push(item);
+        }
+        $scope.$apply();
+    });
+
+    $rootScope.$on('GET_MESSAGE_EVENT', function (event, data) {
+        debugger;
+        vm.messages = [];
+        for (var i = 0; i < data.length; i++) {
+            var msg = {
+                agentId: data[i].agentId,
+                customerId: data[i].customerId,
+                msg: data[i].msgClient,
+                sessionId: data[i].sessionId,
+                clientType: data[i].clientType
+            };
+            vm.messages.push(msg);
+        }
+        $scope.$apply();
+        scrollToBottom();
+    });
+
+    function scrollToBottom() {
+        debugger;
+        $timeout(function () {
+            $('#chat_area').scrollTop($('#chat_area')[0].scrollHeight);
+        }, 1000);
+    }
 });

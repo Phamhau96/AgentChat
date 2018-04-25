@@ -8,7 +8,6 @@ app.controller('loginCtrl', function ($scope, $timeout, mainService) {
 //    $scope.data = {};
 
     function login() {
-//        var data = getRequestObject('login');
         var data = {
             "mode": "login",
             "username": vm.username,

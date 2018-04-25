@@ -9,49 +9,11 @@
         <?php
         include './include/partial/header.php';
         ?>
-        <script src="app/controller/Chat.js" type="text/javascript"></script>
+        <link href="include/css/Comment.css" rel="stylesheet" type="text/css"/>
+        <link href="include/css/facebook.css" rel="stylesheet" type="text/css"/>
+        <link href="include/css/Post.css" rel="stylesheet" type="text/css"/>
+        <script src="app/controller/ChatCtrl.js" type="text/javascript"></script>
     </head>
-    <style>
-        .notify-background {
-            background-color:gold;
-        }
-        .notify-width {
-            width:450px;
-        }
-        .clear{
-            clear:both; 
-        }
-        .on_swicth, .off_swicth {font-size:30px;cursor:pointer;}
-        i.on_swicth { color: #00d449}
-        i.off_swicth {color: #d9534f}
-        #queue_switch_true {
-            float: right;margin-right: 150px;margin-top: -5px;
-        }
-        #queue_switch_false {
-            float: right;margin-right: 150px;margin-top: -5px;
-        }
-        ul {
-            list-style-type: none;
-        }
-        li {
-            list-style-type: none;
-        }
-        .message-bar {
-            height:60px;
-        }
-        .message-bar input {
-            height:50px;
-        }
-        .panel-tabs, .tabbable {
-            padding: 0px;
-        }
-        li.nextSame .message .message-text {
-            float:right!important;
-        }
-        li.self .message .message-text {
-            float:right!important;
-        }
-    </style>
     <body class="hold-transition skin-blue sidebar-mini" ng-controller="chatCtrl as chat" >
         <!-- Site wrapper -->
         <div class="wrapper">
@@ -68,7 +30,8 @@
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <div class="col-md-3 wrap-list border-right" style ="background:#ffffff;height:100%">
+                <!--start Panel Chat-->
+                <div class="panel panel-white no-radius no-margin no-padding no-border col-md-3 " perfect-scrollbar wheel-propagation="true" suppress-scroll-x="true"style ="background:#ffffff; height: 500px!important">
                     <ul style ="padding-top: 20px;padding-left: 20px;">
                         <li style="text-align: center;">
                             <a>
@@ -92,113 +55,183 @@
                     </ul>
 
                 </div>
-
-<!--                <div class="col col-md-3 border-left" style ="background:#ffffff;height: 100%; display: none " >
-                    <div class="padding-15">
-                        <button class="btn btn-primary btn-block margin-bottom-30">
-                            Thông tin {{$scope.isLargeDevice}}
-                        </button>
-                    </div>
-                    <div class="button-as-panel-title">
-                        <div ng-repeat="x in ListQueue" class="margin-left-20" style ="margin-bottom: 20px;">
-                            <span class="label label-warning">{{x.queueName}}</span>
-                            <div id ="queue_switch_true" ng-if="x.chkQueue">
-                                <i  class="fa fa-toggle-on on_swicth"  ng-click="lcQueue(x.queueId, x.queueName, x.chkQueue)"></i>
-                            </div>
-                            <div id ="queue_switch_false" ng-if="!x.chkQueue">
-                                <i  class="fa fa-toggle-on fa-rotate-180 off_swicth" ng-click="lcQueue(x.queueId, x.queueName, x.chkQueue)"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
-            </div>
-
-            <script type="text/ng-template" id ="show_history_message.html">
-                <div class="modal-dialog" style ="margin-top:0px;margin-bottom:0px">
-                <!-- Modal content-->
-                <div class="modal-content">
-                <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
-                <h3 class="modal-title text-center ">{{name_session}}</h3>
-                </div>
-                <div class="modal-body">
-                <div class="row">
-                <div class="col-md-12">
-                <div class="panel">
-                <div class="panel-body">
-                <uib-tabset class="tranfer-tabed" active="activeTab">
+                <!--                <div  class="row col-md-9" style="height: 100%;">
+                                    <div class="panel panel-white no-radius" >
+                                        <div class="panel-body">
+                                            <uib-tabset class="tabbable" active="activeTab">
+                                                <div class="chat-action-container">
+                                                    ui
+                                                    <div id="myModal" style="margin-top: 50px;  display: none; /* Hidden by default */
+                                                         position: fixed; /* Stay in place */
+                                                         z-index: 1; /* Sit on top */
+                                                         padding-top: 100px; /* Location of the box */
+                                                         left: 0;
+                                                         top: 0;
+                                                         width: 100%; /* Full width */
+                                                         height: 100%; /* Full height */
+                                                         overflow: auto; /* Enable scroll if needed */
+                                                         background: wheat;
+                                                         opacity: 0.9;" class="modal">
+                                                        <span ng-click="closeimage()" class="close" style="font-size: 50px;">x</span>
+                                                        <img class="modal-contentimg" id="img01">
+                                                        <div id="caption"></div>
+                                                    </div>
+                                                </div>
+                                                <uib-tab select="tabSelected(this)"  >
+                                                    <uib-tab-heading>
+                                                        <i class="fa fa-weixin text-green" aria-hidden="true">Truc Chat</i>
+                                                        <span class="hidden-xs hidden-sm">{{emailCustomer}}</span>
+                                                    </uib-tab-heading>
+                                                    <div id="users"  toggleable active-class="chat-open" ng-controller="AgentChatCtrlChild">
+                                                        <div class="user-chat" style ="height:483px;overflow: auto;" toggleable active-class="chat-open"  >
+                                                            <div id="chatchatchat" class="chat-content" sessionId>
+                                                                <div class="sidebar-content" id="off-chat" >
+                                                                    <clip-chat messages="chat" id-self="selfIdUser" id-other="otherIdUser"></clip-chat>
+                                                                </div>                                               
+                                                            </div>
+                                                        </div>
+                                                        <div ng-submit="submitChatform()" class="margin-top-10 ng-valid ng-isolate-scope ng-dirty ng-submitted ng-empty" submit-function="sendMessage" ng-model="chatMessage" scroll-element="#off-chat" style="" id="submitchat">
+                                                            <div class="message-bar" >
+                                                                <div class="message-inner">
+                                                                    <div style="display: table-row-group;">
+                                                                        <input type="file" id="file1" name="image" accept=".rar,.xlsx,.xls,.gif,.png,.jpg,.jpeg,.doc, .docx,.ppt, .pptx,.txt,.pdf,.xlsb" file-model="myFile"  ng-file-select="upload($files)"  style="display:none" >
+                                                                        <a class="link icon-only" title="đính kèm file"><i class="fa fa-paperclip" id="upfile1" style="cursor:pointer"></i></a>
+                                                                        <div style="display: -webkit-box">
+                                                                            <a class="link icon-only endchat" ng-click="agentEndChat()" title="kết thúc chat"><i class="fa fa-close"  style="cursor:pointer"></i></a>
+                                                                        </div>
+                                                                        <div  class="linksend ng-scope">
+                                                                        </div>
+                                                                    </div>
+                                                                    <form>
+                                                                        <div class="message-area">
+                                                                            <textarea rows="1"
+                                                                                      id="inputmessage" placeholder="Nhập tin nhắn" ng-model="chatMessage" ng-keyup="$event.keyCode === 13 && submitChat()"  class="ng-valid ng-dirty ng-empty ng-touched" style=""></textarea>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </uib-tab>
+                                            </uib-tabset>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+                <!-- start #panel-message-->
                 <uib-tab>
-                <uib-tab-heading>
-                <i class="fa fa-user text-red" aria-hidden="true"></i>
-                <span class="hidden-xs hidden-sm"> Nội dung</span>
-                </uib-tab-heading>
-                <div ng-repeat ="message in arrlistMessage">
-                <li class="left clearfix" ng-if="message.type === 'SUPERVIOR'" style ="list-style: none">
-                <span class="chat-img pull-left">
-                <img ng-src="{{message.url}}" alt="Agent Avatar" class="img-circle" style="width: 30px;height: 30px;text-align: center;vertical-align: middle;line-height: 30px;margin-right:5px"/>
-                </span>
-                <div class="chat-body clearfix">
-                <div class="header">
-                <strong class="primary-font">{{message.fromName}}</strong> 
-                <small class="pull-right text-muted">
-                <span class="glyphicon glyphicon-time"></span>{{message.date| date:'dd/MM/yyyy HH:mm:ss'}}
-                </small>
-                </div>
-                <p class ="pull-left customer_chat">
-                {{message.content}}
-                </p>
-                </div>
-                </li>
-                <li class="left clearfix" ng-if="message.type === 'agent'" style ="list-style: none">
-                <span class="chat-img pull-left">
-                <img  ng-src="{{message.url}}" alt="Agent Avatar" class="img-circle" style="width: 30px;height: 30px;text-align: center;vertical-align: middle;line-height: 30px;margin-right:5px"/>
-                </span>
-                <div class="chat-body clearfix">
-                <div class="header">
-                <strong class="primary-font">{{message.fromName}}</strong> 
-                <small class="pull-right text-muted">
-                <span class="glyphicon glyphicon-time"></span>{{message.date| date:'dd/MM/yyyy HH:mm:ss'}}
-                </small>
-                </div>
-                <img ng-if="message.typeMessage == 2" style="width:150px;height:100px;" ng-src="{{message.content}}" />
-                <p class ="pull-left customer_chat" ng-if="message.typeMessage == 0 || message.typeMessage == 1">
-                {{message.content}}
-                </p>
-                <a ng-if="message.typeMessage == 3" href="{{message.content}}"><img style="width:50px;height:50px;" ng-src="images/users/file.png"></a>
-                </div>
-                </li>
-                <li class="left clearfix" ng-if="message.type === 'customer'" style ="list-style: none">
-                <span class="chat-img pull-left">
-                <i class="fa fa-user bg-green img-circle" style="width: 30px;height: 30px;text-align: center;vertical-align: middle;line-height: 30px;margin-right:5px"></i>
-                </span>
-                <div class="chat-body clearfix">
-                <div class="header">
-                <strong class="primary-font">{{message.fromName}}</strong> 
-                <small class="pull-right text-muted">
-                <span class="glyphicon glyphicon-time"></span>{{message.date| date:'dd/MM/yyyy HH:mm:ss'}}
-                </small>
-                </div>
-                <img ng-if="message.typeMessage == 2" style="width:150px;height:100px;" ng-src="{{message.content}}" />
-                <p class ="pull-left customer_chat" ng-if="message.typeMessage == 0 || message.typeMessage == 1">
-                {{message.content}}
-                </p>
-                <a ng-if="message.typeMessage == 3" href="{{message.content}}"><img style="width:50px;height:50px;" ng-src="images/users/file.png"></a>
-                </div>
-                </li>
-                </div> 
-                </div>  
-                </div>
+                    <uib-tab-heading>
+                        <i class="fa fa-weixin text-green" aria-hidden="true"></i>
+                        <span class="hidden-xs hidden-sm">Cua so Chat</span>
+                    </uib-tab-heading>
+                    <div class="col-md-9 padding-left-0 padding-right-0 border-right fill-height"  id="panel-message">
+                        <div id="message_list">            
+                            <div class="fill-height">                
+                                <!--<div class="ng-scope padding-top-10">-->
+                                    <div class="row">  
+                                        <div  class="col-md-12">
+                                            <div class="row" style="margin: 5px;">
+                                                <div perfect-scrollbar  wheel-propagation="true" suppress-scroll-x="true"  class="col-md-12" id="chat_area">
+                                                    <div class="chat_area margin-left-10">
+                                                        <ul class="list-unstyled " >
+                                                            <span
+                                                                ng-repeat="item in chat.messages"> 
+                                                                <li class="admin_chat" ng-if="item.clientType=='agent'">
+                                                                    <div class="row fb-row">                                                       
+                                                                        <div class="col-md-12">
+                                                                            <div class="chat-body1 pull-right">
+                                                                                <p>
+                                                                                    {{item.msg}}
+                                                                                </p> 
+                                                                                <!--<img style="max-width: 250px" ng-src="{{item.attachments}}" class=" img-rounded" alt="">-->  
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>  
+                                                                <li class="customer_chat" ng-if="item.clientType=='customer'">
+                                                                    <div class="row fb-row">                                                       
+                                                                        <div class="col-md-12">
+                                                                            <div class="chat-body1 pull-left">
+                                                                                <p>
+                                                                                    {{item.msg}}
+                                                                                </p> 
+                                                                                <!--<img style="max-width: 250px" ng-src="{{item.attachments}}" class=" img-rounded" alt="">-->  
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>  
+                                                            </span>
+                                                        </ul>
+                                                    </div>
+                                                    <!--chat_area-->
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="message_write">
+                                                        <textarea 
+                                                            id="txtChat"
+                                                            class="form-control"
+                                                            placeholder="Nhập nội dung" 
+                                                            ng-keypress="chat.doAnswer($event)"
+                                                            ng-disabled="chat.hide"
+                                                            autofocus
+                                                            ></textarea>   
+                                                        <div class="chat_bottom dropup" >
+                                                            <span style="margin-left: 40px "> 
+                                                                <img  
+                                                                    style="width:30px; height: 30px; margin-left: 3px" 
+                                                                    ng-repeat="item in conversationCtrl.attachments" 
+                                                                    ng-src="{{item.thumbnail}}"  
+                                                                    ng-click="conversationCtrl.removeAttachment(item)">
+                                                            </span>
+
+                                                            <span style="margin-left: 40px "> 
+                                                                <img  ng-repeat="item in attach_files" ng-src="{{item.icon}}"  style="width:30px; height: 30px; margin-left: 3px" ng-click="remove_file($index)">
+                                                            </span>
+                                                            <a 
+                                                                href="#" class="pull-left upload_btn" 
+                                                                ng-click="conversationCtrl.openModal('attach_image')">
+                                                                <i class="fa fa-image" aria-hidden="true">
+                                                                </i>
+                                                                Hình ảnh
+                                                            </a>    
+                                                            <a 
+                                                                href="#" class="pull-left upload_btn" 
+                                                                ng-click="conversationCtrl.openModal('attach_file')">
+                                                                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                                                Tập tin
+                                                            </a>                                                                    
+                                                            <a 
+                                                                href="#" class="pull-left upload_btn dropdown-toggle mp-can-disabled" 
+                                                                ng-disabled="true"
+                                                                data-toggle="dropdown">
+                                                                <i class="fa fa-list" aria-hidden="true"></i>
+                                                                Tin nhắn mẫu
+                                                            </a> 
+                                                            <ul id="haha" class="dropdown-menu">
+                                                                <span ng-repeat="item in conversationCtrl.template_answer">
+                                                                    <li 
+                                                                        ng-click="conversationCtrl.appendTemplateAnswer(item)"
+                                                                        style="padding: 10px">
+                                                                        <a href="">{{item.content}}</a>
+                                                                    </li>
+                                                                    <li class="divider" ng-if="$index < conversationCtrl.template_answer.length - 1"></li>
+                                                                </span>
+                                                            </ul>
+                                                        </div>   
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                <!--</div>-->
+                            </div> 
+                        </div>
+
+                    </div>
                 </uib-tab>
-                </uib-tabset>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>
-            </script>
-                </div>
+                <!-- end panel-message-->
             </div>
             <!-- /.content-wrapper -->
 
