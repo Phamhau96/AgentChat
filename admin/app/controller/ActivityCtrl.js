@@ -7,9 +7,9 @@ app.controller('activityCtrl', function ($scope, $rootScope, $timeout, mainServi
     function openConnectionSocket() {
         $rootScope.wsChat = new WebSocket('ws://localhost:8080');
         $rootScope.wsChat.onopen = function (data) {
-            debugger;
             var tmp = document.cookie.split('id=')[1];
-            vm.agentId = document.cookie.split(';')[0];
+            vm.agentId = tmp.split(';')[0];
+            localStorage.setItem('AgentId', vm.agentId);
             var dataSend = {
                 id: vm.agentId,
                 'action': 'Login',
@@ -28,10 +28,9 @@ app.controller('activityCtrl', function ($scope, $rootScope, $timeout, mainServi
         $rootScope.wsChat.onmessage = function (data) {
             var id = sessionStorage.getItem('staff_id');
             var dataChat = JSON.parse(data.data);
-            debugger;
             switch (dataChat.event) {
-                case 'JoinEvent':
-                    $rootScope.$broadcast("JOIN_EVENT", dataChat);
+                case 'AcceptChat':
+                    $rootScope.$broadcast("ACCEPT_CHAT", dataChat);
                     break;
                 case 'SendChat':
                     $rootScope.$broadcast("SEND_CHAT_EVENT", dataChat);
@@ -43,7 +42,11 @@ app.controller('activityCtrl', function ($scope, $rootScope, $timeout, mainServi
                 case 'GetConversationAgent':
                     var message = dataChat.value;
                     $rootScope.$broadcast("GET_CONVERSATION_AGENT_EVENT", message);
+                    break;
+                case 'EndChat':
                     debugger;
+                    var message = dataChat.value;
+                    $rootScope.$broadcast("END_CHAT", message);
                     break;
                 default:
 

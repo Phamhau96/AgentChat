@@ -1,4 +1,4 @@
-app.controller('loginCtrl', function ($scope, $timeout, mainService) {
+app.controller('loginCtrl', function ($scope, $timeout, mainService, $rootScope) {
     var uri = "login.php";
     var vm = this;
     vm.data = {};
@@ -42,6 +42,15 @@ app.controller('loginCtrl', function ($scope, $timeout, mainService) {
                 $timeout(function () {
                     window.location.href = "/admin/login.php";
                 }, 1000);
+                
+                var msg = {
+                    action: 'LogOut',
+                    id : localStorage.getItem('AgentId')
+                };
+                if ($rootScope.wsChat.readyState !== WebSocket.OPEN) {
+                    $rootScope.wsChat = new WebSocket('ws://localhost:8080');
+                }
+                $rootScope.wsChat.send(JSON.stringify(msg));
             } else {
                 show_notify('Thông báo', "Có lỗi xảy ra", "error");
             }

@@ -52,4 +52,6 @@ function getVNDateString($mySqlDateString){
     $date = DateTime::createFromFormat("Y-m-d", $mySqlDateString);
     return date_format($date, "d/m/Y");
 }
+
+
 ?>
